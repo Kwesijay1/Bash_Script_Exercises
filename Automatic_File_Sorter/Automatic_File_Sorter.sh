@@ -1,7 +1,6 @@
 #!/bin/bash
-# This script organizes files in a folder based on their types by scanning a directory, identifying file extensions, 
+# This script organizes files in a folder based on their types by scanning a directory, identifying file extensions,
 # and moving the files into appropriate subfolders like Documents, Images, and Videos.
-
 
 # This function creates a folder if it doesn't exist
 create_folder_if_not_exists() {
@@ -25,15 +24,15 @@ TARGET_DIR=${1:-.}
 DOCUMENTS="$TARGET_DIR/Documents"
 IMAGES="$TARGET_DIR/Images"
 VIDEOS="$TARGET_DIR/Videos"
-OTHERS="$TARGET_DIR/Others"
+
 
 # Create folders for file types
 create_folder_if_not_exists "$DOCUMENTS"
 create_folder_if_not_exists "$IMAGES"
 create_folder_if_not_exists "$VIDEOS"
-create_folder_if_not_exists "$OTHERS"
 
-# Scan the directory and organize files
+
+# This scans the directory and organizes files
 for file in "$TARGET_DIR"/*; do
     # Skip directories and hidden files
     if [ -d "$file" ] || [[ $(basename "$file") == .* ]]; then
@@ -42,27 +41,18 @@ for file in "$TARGET_DIR"/*; do
 
     # Get the file extension
     extension="${file##*.}"
-    extension=$(echo "$extension" | tr '[:upper:]' '[:lower:]') 
+    extension=$(echo "$extension" | tr '[:upper:]' '[:lower:]')
 
-    # Determine the file type and move accordingly
-    case "$extension" in
-        # Document file types
-        "txt"|"pdf"|"doc"|"docx"|"xls"|"xlsx"|"ppt"|"pptx")
-            move_file_to_folder "$file" "$DOCUMENTS"
-            ;;
-        # Image file types
-        "jpg"|"jpeg"|"png"|"gif"|"bmp"|"tiff"|"svg")
-            move_file_to_folder "$file" "$IMAGES"
-            ;;
-        # Video file types
-        "mp4"|"mkv"|"avi"|"mov"|"wmv"|"flv"|"webm")
-            move_file_to_folder "$file" "$VIDEOS"
-            ;;
-        # Other file types or no extensions
-        *)
-            move_file_to_folder "$file" "$OTHERS"
-            ;;
-    esac
+    # Determine the file type and move accordingly using if-else statements
+    if [[ "$extension" == "txt" || "$extension" == "pdf" || "$extension" == "doc" || "$extension" == "docx" || "$extension" == "xls" || "$extension" == "xlsx" || "$extension" == "ppt" || "$extension" == "pptx" ]]; then
+        move_file_to_folder "$file" "$DOCUMENTS"
+    elif [[ "$extension" == "jpg" || "$extension" == "jpeg" || "$extension" == "png" || "$extension" == "gif" || "$extension" == "bmp" || "$extension" == "tiff" || "$extension" == "svg" ]]; then
+        move_file_to_folder "$file" "$IMAGES"
+    elif [[ "$extension" == "mp4" || "$extension" == "mkv" || "$extension" == "avi" || "$extension" == "mov" || "$extension" == "wmv" || "$extension" == "flv" || "$extension" == "webm" ]]; then
+        move_file_to_folder "$file" "$VIDEOS"
+    else
+        echo "Unknown file type: $file. Skipping..."
+    fi
 done
 
 # Final message
