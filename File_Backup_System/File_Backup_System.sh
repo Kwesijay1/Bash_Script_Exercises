@@ -1,5 +1,5 @@
 #!/bin/bash
-#bash script that provides functionality for backing up important files. It includes options for full 
+#This script provides the functionality for backing up important files. It includes options for full 
 #and partial backups, compression, and scheduling using cron.
 
 # Set default configurations

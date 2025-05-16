@@ -46,9 +46,9 @@ for file in "$TARGET_DIR"/*; do
     # Determine the file type and move accordingly using if-else statements
     if [[ "$extension" == "txt" || "$extension" == "pdf" || "$extension" == "doc" || "$extension" == "docx" || "$extension" == "xls" || "$extension" == "xlsx" || "$extension" == "ppt" || "$extension" == "pptx" ]]; then
         move_file_to_folder "$file" "$DOCUMENTS"
-    elif [[ "$extension" == "jpg" || "$extension" == "jpeg" || "$extension" == "png" || "$extension" == "gif" || "$extension" == "bmp" || "$extension" == "tiff" || "$extension" == "svg" ]]; then
+    elif [[ "$extension" == "jpg" || "$extension" == "jpeg" || "$extension" == "png" || "$extension" == "gif" ||  "$extension" == "svg" ]]; then
         move_file_to_folder "$file" "$IMAGES"
-    elif [[ "$extension" == "mp4" || "$extension" == "mkv" || "$extension" == "avi" || "$extension" == "mov" || "$extension" == "wmv" || "$extension" == "flv" || "$extension" == "webm" ]]; then
+    elif [[ "$extension" == "mp4" || "$extension" == "mkv" || "$extension" == "avi" || "$extension" == "webm" ]]; then
         move_file_to_folder "$file" "$VIDEOS"
     else
         echo "Unknown file type: $file. Skipping..."
