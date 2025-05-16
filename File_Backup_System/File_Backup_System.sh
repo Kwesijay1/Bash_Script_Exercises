@@ -9,7 +9,7 @@ BACKUP_TYPE="full"
 COMPRESS=false
 SCHEDULE=false
 
-# Function to display usage
+# This function display the usage
 usage() {
     echo "Usage: $0 [OPTIONS]"
     echo "Options:"
@@ -18,11 +18,11 @@ usage() {
     echo "  -t <type>         Specify backup type (full or partial)"
     echo "  -c                Enable compression of backup files"
     echo "  -h                Display this help message"
-    echo "  -schedule <time>  Schedule backup using cron (e.g., 'daily', 'weekly', 'monthly')"
+    echo "  -schedule <time>  Schedule backup using cron (e.g., 'hourly', 'daily', 'weekly', 'monthly')"
     exit 1
 }
 
-# Function to perform backup
+# This function performs the backup
 backup() {
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
     BACKUP_NAME="backup_$TIMESTAMP"
@@ -56,9 +56,12 @@ backup() {
     echo "Backup completed successfully."
 }
 
-# Function to schedule backup
+# This function schedules the backup
 schedule_backup() {
     case "$1" in
+        hourly)
+            CRON_TIME="1 * * * *"
+            ;;
         daily)
             CRON_TIME="0 2 * * *"
             ;;
@@ -69,7 +72,7 @@ schedule_backup() {
             CRON_TIME="0 2 1 * *"
             ;;
         *)
-            echo "Invalid schedule option. Use 'daily', 'weekly', or 'monthly'."
+            echo "Invalid schedule option. Use 'hourly', 'daily', 'weekly', or 'monthly'."
             exit 1
             ;;
     esac
@@ -85,16 +88,17 @@ schedule_backup() {
 }
 
 # Parse command-line arguments
-while getopts "s:d:t:chschedule:" opt; do
-    case "$opt" in
-        s) SOURCE_DIR=$OPTARG ;;
-        d) DEST_DIR=$OPTARG ;;
-        t) BACKUP_TYPE=$OPTARG ;;
-        c) COMPRESS=true ;;
-        h) usage ;;
-        schedule) SCHEDULE=$OPTARG ;;
-        *) usage ;;
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -s) SOURCE_DIR="$2"; shift ;;
+        -d) DEST_DIR="$2"; shift ;;
+        -t) BACKUP_TYPE="$2"; shift ;;
+        -c) COMPRESS=true ;;
+        -h) usage ;;
+        -schedule) SCHEDULE="$2"; shift ;;
+        *) echo "Unknown option: $1"; usage ;;
     esac
+    shift
 done
 
 if [ -z "$SOURCE_DIR" ] || [ -z "$DEST_DIR" ]; then
