@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Disk Space Analyzer Script
+# Disk Space Analyzer Script with Tree-like Output
 # Description: Analyzes disk usage and provides a tree-like display with sorting and filtering options.
 
 # Function to display usage
@@ -38,16 +38,35 @@ if [[ "$SORT" != "size" && "$SORT" != "name" ]]; then
   usage
 fi
 
-# Function to format and display disk usage
+# Function to format and display disk usage with tree structure
 analyze_disk_usage() {
   local dir="$1"
   local indent="$2"
   local filter="$3"
-
-  # Get disk usage for the current directory
-  du -sh "$dir"/* 2>/dev/null | while read -r line; do
+  local prefix="$4"
+  local is_last="$5"
+  
+  # Get list of items in directory
+  local items=()
+  while IFS= read -r line; do
+    items+=("$line")
+  done < <(du -sh "$dir"/* 2>/dev/null)
+  
+  # Sort items based on the specified criteria
+  if [[ "$SORT" == "size" ]]; then
+    IFS=$'\n' sorted_items=($(printf "%s\n" "${items[@]}" | sort -hr))
+  else
+    IFS=$'\n' sorted_items=($(printf "%s\n" "${items[@]}" | sort -k2))
+  fi
+  
+  local count=${#sorted_items[@]}
+  local i=0
+  
+  for line in "${sorted_items[@]}"; do
+    i=$((i+1))
     size=$(echo "$line" | awk '{print $1}')
     path=$(echo "$line" | awk '{print $2}')
+    name=$(basename "$path")
     
     # Apply filter if specified
     if [[ -n "$filter" ]]; then
@@ -55,25 +74,39 @@ analyze_disk_usage() {
       threshold=$(echo "$filter" | grep -oE '[0-9]+[KMG]')
       size_in_bytes=$(numfmt --from=iec "$size")
       threshold_in_bytes=$(numfmt --from=iec "$threshold")
-      if ! [[ "$size_in_bytes" "$operator" "$threshold_in_bytes" ]]; then
+      
+      if [[ "$operator" == ">" && "$size_in_bytes" -le "$threshold_in_bytes" ]]; then
+        continue
+      elif [[ "$operator" == "<" && "$size_in_bytes" -ge "$threshold_in_bytes" ]]; then
         continue
       fi
     fi
-
-    # Display the item
-    echo "${indent}${size} $(basename "$path")"
-
+    
+    # Determine tree characters
+    local tree_char=""
+    if [[ "$is_last" == "true" ]]; then
+      tree_char="└── "
+      new_prefix="$prefix    "
+    else
+      tree_char="├── "
+      new_prefix="$prefix│   "
+    fi
+    
+    # Display the item with tree structure
+    echo "${prefix}${tree_char}${size} ${name}"
+    
     # Recursively analyze subdirectories
     if [[ -d "$path" ]]; then
-      analyze_disk_usage "$path" "  $indent" "$filter"
+      if [[ $i -eq $count ]]; then
+        analyze_disk_usage "$path" "$indent" "$filter" "$new_prefix" "true"
+      else
+        analyze_disk_usage "$path" "$indent" "$filter" "$new_prefix" "false"
+      fi
     fi
   done
 }
 
 # Main execution
 echo "Analyzing disk usage in: $DIR"
-if [[ "$SORT" == "size" ]]; then
-  analyze_disk_usage "$DIR" "" "$FILTER" | sort -hr
-else
-  analyze_disk_usage "$DIR" "" "$FILTER" | sort
-fi
+echo "$DIR"
+analyze_disk_usage "$DIR" "" "$FILTER" "" "true"
