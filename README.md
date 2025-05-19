@@ -44,7 +44,7 @@ This repository contains a suite of practical Bash scripting exercises, each des
 ```
  **Run a Script**
     
-    ./<project_folder>/<script_name>.sh [options]
+    ./<script_name>.sh [options]
 
 Refer to each project's README.md for detailed usage instructions and examples.
 
