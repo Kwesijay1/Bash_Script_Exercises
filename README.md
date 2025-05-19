@@ -40,7 +40,7 @@ This repository contains a suite of practical Bash scripting exercises, each des
 ```
  **Make Scripts Executable**
 ```    
-    chmod +x */*.sh
+    chmod +x <script_name>.sh
 ```
  **Run a Script**
     
@@ -59,4 +59,5 @@ Refer to each project's README.md for detailed usage instructions and examples.
 
 Explore each folder for more information, examples, and customization tips. 
 
-##**Happy scripting!**
+
+**Happy scripting!**
