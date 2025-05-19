@@ -32,14 +32,13 @@ This repository contains a suite of practical Bash scripting exercises, each des
    git clone https://github.com/yourusername/bash-script-exercises.git
    cd bash-script-exercises
 
- **Make Scripts Executable**
 ```
+ **Make Scripts Executable**
     chmod +x */*.sh
 ```
 ```
  **Run a Script**
     
-```
     ./<project_folder>/<script_name>.sh [options]
 ```
 Refer to each project's README.md for detailed usage instructions and examples.
@@ -48,7 +47,7 @@ Refer to each project's README.md for detailed usage instructions and examples.
 **Bash shell** (Linux, macOS, or Windows with WSL)
 **Common Unix utilities** (e.g., find, stat, sha256sum, tar, openssl)
 
-```
+
 ## **Project Highlights**
 **Automation**: Streamline repetitive file and system tasks.
 **Safety**: Many scripts include prompts or logs to prevent accidental data loss.
@@ -56,6 +55,5 @@ Refer to each project's README.md for detailed usage instructions and examples.
 **Learning**: Great for learning Bash scripting and Unix command-line tools.
 ```
 Explore each folder for more information, examples, and customization tips. 
-```
 
 Happy scripting!
