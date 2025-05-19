@@ -35,12 +35,12 @@ This repository contains a suite of practical Bash scripting exercises, each des
 ```
  **Make Scripts Executable**
     chmod +x */*.sh
-```
+    
 ```
  **Run a Script**
     
     ./<project_folder>/<script_name>.sh [options]
-```
+
 Refer to each project's README.md for detailed usage instructions and examples.
 
 ## **Requirements**
