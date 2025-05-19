@@ -34,8 +34,9 @@ This repository contains a suite of practical Bash scripting exercises, each des
 
 ```
  **Make Scripts Executable**
+```    
     chmod +x */*.sh
-    
+
 ```
  **Run a Script**
     
