@@ -36,7 +36,6 @@ This repository contains a suite of practical Bash scripting exercises, each des
  **Make Scripts Executable**
 ```    
     chmod +x */*.sh
-
 ```
  **Run a Script**
     
@@ -54,7 +53,7 @@ Refer to each project's README.md for detailed usage instructions and examples.
 **Safety**: Many scripts include prompts or logs to prevent accidental data loss.
 **Customization**: Easily modify scripts to fit your workflow.
 **Learning**: Great for learning Bash scripting and Unix command-line tools.
-```
+
 Explore each folder for more information, examples, and customization tips. 
 
 Happy scripting!
