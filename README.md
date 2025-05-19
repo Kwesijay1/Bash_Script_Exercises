@@ -47,7 +47,7 @@ Refer to each project's README.md for detailed usage instructions and examples.
 ## **Requirements**
 **Bash shell** (Linux, macOS, or Windows with WSL)
 **Common Unix utilities** (e.g., find, stat, sha256sum, tar, openssl)
-```
+
 ```
 ## **Project Highlights**
 **Automation**: Streamline repetitive file and system tasks.
