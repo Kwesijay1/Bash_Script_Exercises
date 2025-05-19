@@ -2,6 +2,11 @@
 
 This repository contains a suite of practical Bash scripting exercises, each designed to automate and simplify common file management and system administration tasks. The scripts are organized into directories by functionality, with each project featuring its own documentation and examples.
 
+## **Requirements**
+**Bash shell** (Linux, macOS, or Windows with WSL)
+
+**Common Unix utilities** (e.g., find, stat, sha256sum, tar, openssl)
+
 ## Contents
 
 - **[Automatic_File_Sorter](Automatic_File_Sorter/Automatic_File_Sorter.sh)**  
@@ -42,12 +47,6 @@ This repository contains a suite of practical Bash scripting exercises, each des
     ./<project_folder>/<script_name>.sh [options]
 
 Refer to each project's README.md for detailed usage instructions and examples.
-
-## **Requirements**
-**Bash shell** (Linux, macOS, or Windows with WSL)
-
-**Common Unix utilities** (e.g., find, stat, sha256sum, tar, openssl)
-
 
 ## **Project Highlights**
 **Automation:** Simplifies and automates repetitive file management and system administration tasks.
